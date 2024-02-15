@@ -61,7 +61,7 @@ const login = async (req, res) => {
     }
 
     const token = jwt.sign({ userId: user._id }, secretKey);
-    res.cookie("token", token, { httpOnly: false });
+    res.cookie("token", token, { httpOnly: true });
 
     return res
       .status(200)
@@ -75,7 +75,7 @@ const authVerify = async (req, res, next) => {
   console.log("in authVerify");
   try {
     const token = req.cookies.token;
-    // console.log(token);
+    console.log(token);
     if (!token) {
       return res.status(400).json({ error: "no token" });
     }
